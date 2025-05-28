@@ -1,5 +1,5 @@
 // app/pokedex/page.tsx
-import { getPokemonTypes, getPokemonList } from "@/app/api/api";
+import { getPokemonTypes, getPokemonList } from "@/app/api";
 import Pokedex from "./components/Pokedex";
 
 export default async function PokédexPage() {

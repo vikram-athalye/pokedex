@@ -4,12 +4,10 @@ const SPRITES_BASE_URL =
 
 function getPokemonIdFromUrl(url: string): string {
   const parts = url.split("/").filter(Boolean);
-  return parts[parts.length - 1]; // last segment is the ID
+  return parts[parts.length - 1];
 }
 
-/**
- * Get all Pokémon types (used in the select dropdown).
- */
+//get all pokemon types (used in the select dropdown).
 export async function getPokemonTypes(): Promise<string[]> {
   const res = await fetch(`${BASE_URL}/type`);
   if (!res.ok) throw new Error("Failed to fetch Pokémon types");
@@ -18,10 +16,7 @@ export async function getPokemonTypes(): Promise<string[]> {
   return data.results.map((type: { name: string }) => type.name);
 }
 
-/**
- * Get list of Pokémon by type (or all if no type is passed).
- * Note: This is a simplified list, just names & urls.
- */
+//get list of pokemon by type (or all if no type is passed).
 export async function getPokemonList(
   type: string = ""
 ): Promise<{ name: string; url: string; image: string }[]> {
@@ -41,7 +36,7 @@ export async function getPokemonList(
       };
     });
   } else {
-    const res = await fetch(`${BASE_URL}/pokemon?limit=12`);
+    const res = await fetch(`${BASE_URL}/pokemon?limit=500`);
     if (!res.ok) throw new Error("Failed to fetch Pokemon list");
     const data = await res.json();
     console.log("data", data);
@@ -56,9 +51,8 @@ export async function getPokemonList(
   }
 }
 
+//get pokemon details by name
 export async function getPokemonDetail(name: string): Promise<any> {
   const res = await fetch(`${BASE_URL}/pokemon/${name}`);
-  if (!res.ok) throw new Error(`Failed to fetch Pokemon detail: ${name}`);
-
-  return res.json();
+  return res ? res.json() : {};
 }
