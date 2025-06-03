@@ -29,7 +29,8 @@ export async function fetchPokemonListAction({
 export async function filterPokemons(prevState: any, formData: FormData) {
   const type = formData.get("pokemon-type") as string;
   const search = formData.get("pokemon-search") as string;
-
+  console.log("type", type);
+  console.log("search", search);
   let pokemons = await getPokemonList(type);
   if (search) {
     pokemons = pokemons.filter((p) =>
@@ -37,5 +38,5 @@ export async function filterPokemons(prevState: any, formData: FormData) {
     );
   }
 
-  return { pokemons };
+  return { pokemons, type, search };
 }

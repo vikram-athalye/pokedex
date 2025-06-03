@@ -54,5 +54,8 @@ export async function getPokemonList(
 //get pokemon details by name
 export async function getPokemonDetail(name: string): Promise<any> {
   const res = await fetch(`${BASE_URL}/pokemon/${name}`);
-  return res ? res.json() : {};
+  if (!res.ok) {
+    return null;
+  }
+  return res.json();
 }
